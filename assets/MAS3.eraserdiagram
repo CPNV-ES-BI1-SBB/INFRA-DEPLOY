@@ -1,7 +1,6 @@
 cloud-architecture-diagram
 title MAS3-BI1-RIA2
 
-
 WAN[icon: cloud, color: red]
 
 AWS-VPC [icon: aws-vpc, color: blue]{
@@ -41,5 +40,8 @@ AWS-VPC [icon: aws-vpc, color: blue]{
   }
 }
 
-WAN - NatSrv - LAN-ELT
-WAN - NatSrv - LAN-ETL
+//WAN -- NatSrv -- DMZ switch -- LAN-ELT 
+//WAN -- NatSrv -- DMZ switch -- LAN-ETL 
+
+WAN -- NatSrv -- LAN-ELT
+WAN -- NatSrv -- LAN-ETL
