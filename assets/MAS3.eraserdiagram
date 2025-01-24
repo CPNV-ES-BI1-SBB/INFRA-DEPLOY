@@ -3,15 +3,15 @@ title MAS3-BI1-RIA2
 
 WAN[icon: cloud, color: red]
 
-AWS-VPC [icon: aws-vpc, color: blue]{
-  DMZ[icon: unlock, color: black]{
+AWS-VPC [icon: aws-vpc, color: blue, label: "AWS VPC - 10.0.0.0/16"]{
+  DMZ[icon: unlock, color: black, label: "WAN - 10.0.0.0/29"]{
     NatSrv[icon: virtual-machine, color: black]{
       firewall [icon: firewall, color: black]
       NAT [icon: aws-nat-gateway, color: black]
     }
   }
 
-  LAN-ETL[icon: aws-vpc-router]{
+  LAN-ETL[icon: aws-vpc-router, label: "LAN-ETL - 10.0.1.0/28"]{
     host-etl[icon: virtual-machine, label: "VPS"]{
       docker-etl[icon: docker, label: "Docker Engine"]{
         network-etl [icon: network, color: black, label: etl]{
@@ -25,7 +25,7 @@ AWS-VPC [icon: aws-vpc, color: blue]{
     }
   }
 
-  LAN-ELT[icon: aws-vpc-router]{
+  LAN-ELT[icon: aws-vpc-router, label: "LAN-ELT - 10.0.2.0/28"]{
     host-elt[icon: virtual-machine, label: "VPS"]{
       docker-elt[icon: docker, label: "Docker Engine"]{
         network-elt [icon: network, color: black, label: elt]{
