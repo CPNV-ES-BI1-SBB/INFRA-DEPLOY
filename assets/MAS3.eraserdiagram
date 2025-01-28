@@ -4,7 +4,7 @@ title MAS3-BI1-RIA2
 WAN[icon: cloud, color: red]
 
 AWS-VPC [icon: aws-vpc, color: blue, label: "AWS VPC - 10.0.0.0/16"]{
-  DMZ[icon: unlock, color: black, label: "WAN - 10.0.0.0/29"]{
+  DMZ[icon: unlock, color: black, label: "WAN - 10.0.0.0/28"]{
     NatSrv[icon: virtual-machine, color: black]{
       firewall [icon: firewall, color: black]
       NAT [icon: aws-nat-gateway, color: black]
