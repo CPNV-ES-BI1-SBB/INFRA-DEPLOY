@@ -43,5 +43,5 @@ AWS-VPC [icon: aws-vpc, color: blue, label: "AWS VPC - 10.0.0.0/16"]{
 //WAN -- NatSrv -- DMZ switch -- LAN-ELT 
 //WAN -- NatSrv -- DMZ switch -- LAN-ETL 
 
-WAN -- NatSrv -- LAN-ELT
-WAN -- NatSrv -- LAN-ETL
+WAN -- NatSrv: ">>ssh:22"
+NatSrv -- LAN-ELT, LAN-ETL: ">>ssh:22"
