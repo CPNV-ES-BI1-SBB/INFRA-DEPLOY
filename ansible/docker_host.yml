@@ -1,0 +1,26 @@
+---
+- name: Setup docker host
+  become: yes
+  hosts: all
+  tasks:
+    - name: Create docker's user group
+      group:
+        name: docker
+        state: present
+
+    - name: Create specified user
+      user:
+        name: "{{ create_user }}"
+        state: present
+        groups: docker
+        append: yes
+
+    - name: Add SSH key
+      ansible.posix.authorized_key:
+        user: "{{ create_user }}"
+        state: present
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILkx00w8FSs2toxEUiU8gMnwwXEkbo8YNh+4wphQxvnj ELT"
+
+    - name: Install docker
+      include_role:
+        name: geerlingguy.docker
