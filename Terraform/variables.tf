@@ -13,9 +13,7 @@ variable natsrv {
 variable vpc {
     type        = map(string)
     default     = {
-        vpc_name = "RIA2"
         cidr_block = "10.0.0.0/16"
-        vpc_id     =  "vpc-00ab264cfa68e1fe2"
     }
     description = "VPC base information"
 }
@@ -24,7 +22,7 @@ variable dmz_subnet {
     type        = map(string)
     default     = {
         subnet_name: "DMZ",
-        cidr_block: "10.0.0.0/28"
+        cidr_block: "10.0.0.0/16"
     }
     description = "Public subnet base information"
 }
