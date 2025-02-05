@@ -27,7 +27,8 @@
       ansible.posix.authorized_key:
         user: devs
         state: present
-        key: "{{ ssh_keys}}"
+        key: "{{ item }}"
+      loop: "{{ ssh_keys }}"
 
     - name: Enable IPv4 forwarding
       lineinfile:

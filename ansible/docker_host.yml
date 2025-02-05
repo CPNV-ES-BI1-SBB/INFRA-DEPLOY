@@ -19,7 +19,8 @@
       ansible.posix.authorized_key:
         user: "{{ create_user }}"
         state: present
-        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILkx00w8FSs2toxEUiU8gMnwwXEkbo8YNh+4wphQxvnj ELT"
+        key: "{{ item }}"
+      loop: "{{ ssh_keys }}"
 
     - name: Install docker
       include_role:
