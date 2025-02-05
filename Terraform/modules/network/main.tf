@@ -8,6 +8,7 @@ resource "aws_subnet" "DMZ" {
   cidr_block = var.dmz_subnet["cidr_block"]
 }
 
+# Private subnets creation
 resource "aws_subnet" "private_subnet" {
   count = length(var.private_subnets)
   vpc_id     = aws_vpc.DMZ.id
