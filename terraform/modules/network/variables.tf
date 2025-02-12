@@ -15,3 +15,9 @@ variable "private_subnets" {
     }))
     description = "Private subnets base information. List in terraform.tfvars.json"
 }
+
+variable "cluster_hosts" {
+    description = "Number of hosts in the cluster"
+    type        = number
+    default     = 1    
+}

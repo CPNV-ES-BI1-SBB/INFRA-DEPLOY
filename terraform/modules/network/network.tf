@@ -6,6 +6,10 @@ resource "aws_vpc" "DMZ" {
 resource "aws_subnet" "DMZ" {
   vpc_id     = aws_vpc.DMZ.id
   cidr_block = var.dmz_subnet["cidr_block"]
+
+  tags = {
+    Name = var.dmz_subnet["subnet_name"]
+  }
 }
 
 # Private subnets creation
@@ -13,6 +17,10 @@ resource "aws_subnet" "private_subnet" {
   count = length(var.private_subnets)
   vpc_id     = aws_vpc.DMZ.id
   cidr_block = var.private_subnets[count.index]["cidr_block"]
+
+  tags = {
+    Name = var.private_subnets[count.index]["subnet_name"]
+  }
 }
 
 # Internet Gateway
@@ -31,7 +39,7 @@ resource "aws_route_table" "dmz_route_table" {
 }
 
 # Routes for private subnets
-resource "aws_route_table" "private_subnets_route" {
+resource "aws_route_table" "private_subnet_routes" {
   count = length(var.private_subnets)
   vpc_id = aws_vpc.DMZ.id
 
