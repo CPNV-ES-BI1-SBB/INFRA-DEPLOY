@@ -1,13 +1,13 @@
-variable natsrv {
-    type        = map(string)
-    default     = {
-        hostname = "NatSrv"
-        IP       = "10.0.0.5/28"
-        ami_id      = "ami-08613ebea86dc5d60"
-        instance_type = "t3.micro"
-        ami_location  = "amazon/debian-12-amd64-20240717-1811"
-    }
-    description = "NatSrv base information"
+variable "instance_type" {
+    type        = string
+    default     = "t3.micro"
+    description = "Instance type"
+}
+
+variable "ami" {
+    type        = string
+    default     = "ami-08613ebea86dc5d60"
+    description = "AMI ID"
 }
 
 variable vpc {
@@ -34,6 +34,13 @@ variable private_subnets {
     }))
     description = "Private subnets base information. List in terraform.tfvars.json"
 }
+
+
+
+
+
+
+
 
 variable keyPairs {
     type       = map(string)
