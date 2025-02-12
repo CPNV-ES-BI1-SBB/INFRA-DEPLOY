@@ -12,7 +12,6 @@ resource "aws_instance" "NatSrv" {
 
 
 resource "aws_instance" "cluster_host" {
-    # for_each = tomap({for host in local.subnet_hosts: "${host.subnet_id}-${host.name}" => host })
     count         = length(local.subnet_hosts)
     ami           = var.host_ami
     instance_type = var.host_instance_type
