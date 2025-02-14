@@ -1,5 +1,9 @@
 resource "aws_vpc" "DMZ" {
   cidr_block = var.vpc_cidr_block
+
+  tags = {
+    Name = "VPC-RIA2"
+  }
 }
 
 # DMZ creation
