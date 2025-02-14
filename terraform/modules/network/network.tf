@@ -14,6 +14,8 @@ resource "aws_subnet" "DMZ" {
   tags = {
     Name = var.dmz_subnet["subnet_name"]
   }
+
+  depends_on = [aws_vpc.DMZ]
 }
 
 # Private subnets creation
@@ -25,11 +27,15 @@ resource "aws_subnet" "private_subnet" {
   tags = {
     Name = var.private_subnets[count.index]["subnet_name"]
   }
+
+  depends_on = [aws_vpc.DMZ]
 }
 
 # Internet Gateway
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.DMZ.id
+
+  depends_on = [aws_vpc.DMZ]
 }
 
 # Routes for DMZ subnet
@@ -40,6 +46,8 @@ resource "aws_route_table" "dmz_route_table" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
+
+  depends_on = [aws_internet_gateway.igw]
 }
 
 # Routes for private subnets
@@ -54,6 +62,8 @@ resource "aws_route_table" "private_subnet_routes" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "10.0.0.5/32"
+    network_interface_id = aws_instance.NatSrv.primary_network_interface_id
   }
+
+  depends_on = [module.instances.aws_instance.NatSrv]
 }
