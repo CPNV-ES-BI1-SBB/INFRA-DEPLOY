@@ -16,7 +16,12 @@ variable "private_subnets" {
     description = "Private subnets base information. List in terraform.tfvars.json"
 }
 
-variable vpc {
+variable "igw_name" {
+    type = string
+    description = "IGW name"
+}
+
+variable "vpc" {
     type        = map(string)
     description = "VPC base information"
 }

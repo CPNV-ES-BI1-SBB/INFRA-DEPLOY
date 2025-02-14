@@ -36,6 +36,10 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.DMZ.id
 
   depends_on = [aws_vpc.DMZ]
+
+  tags = {
+    Name = var.igw_name
+  }
 }
 
 # Routes for DMZ subnet
