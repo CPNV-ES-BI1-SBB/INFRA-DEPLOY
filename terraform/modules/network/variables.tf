@@ -1,8 +1,3 @@
-variable "vpc_cidr_block" {
-    description = "The CIDR block for the VPC"
-    type        = string
-}
-
 variable "dmz_subnet" {
     description = "The CIDR block for the DMZ subnet"
     type        = map

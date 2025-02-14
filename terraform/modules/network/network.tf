@@ -1,8 +1,8 @@
 resource "aws_vpc" "DMZ" {
-  cidr_block = var.vpc_cidr_block
+  cidr_block = var.vpc["cidr_block"]
 
   tags = {
-    Name = "VPC-RIA2"
+    Name = var.vpc["name"]
   }
 }
 
@@ -60,7 +60,7 @@ resource "aws_route_table" "private_subnet_routes" {
   vpc_id = aws_vpc.DMZ.id
 
   route {
-    cidr_block = "10.0.0.0/16"
+    cidr_block = var.vpc_cidr_block
     gateway_id = "local"
   }
 
