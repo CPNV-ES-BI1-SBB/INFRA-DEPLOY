@@ -6,17 +6,16 @@
 # Usage
 ## Ansible
 *As a Windows user, I'm using WSL (Debian 12) to run ansible playbook*
+### NatSrv
+**Extra vars :**
+```bash
+ansible-playbook -i inventory.yml --private-key ~/.ssh/ria2_sysadm --user admin natsrv.yml
+```
 ### Setup docker host
 **Extra vars :**
 - *create_user* : is the user to create on the host to be used by the devs
 ```bash
-ansible-playbook -i '10.229.32.104,' --private-key ~/.ssh/ria2_sysadm --user root install_docker.yml -e 'create_user=elt'
-```
-
-### NatSrv
-**Extra vars :**
-```bash
-ansible-playbook -i '10.229.32.104,' --private-key ~/.ssh/ria2_sysadm --user root natsrv.yml -e 'ssh_keys=["key1", "key2"...]'
+ansible-playbook -i inventory.yml --private-key ~/.ssh/ria2_sysadm --user admin install_docker.yml
 ```
 # Setup
 ## Terraform
