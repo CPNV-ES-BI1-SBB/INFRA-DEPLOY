@@ -138,7 +138,7 @@ resource "aws_vpc_security_group_egress_rule" "private_subnets_egress_rules" {
   description       = "Allow all outbound traffic"
 }
 
-# Routes associations
+# Routes tables associations
 resource "aws_route_table_association" "dmz_subnet_association" {
   subnet_id      = aws_subnet.DMZ.id
   route_table_id = aws_route_table.dmz_route_table.id
@@ -154,7 +154,7 @@ resource "aws_route_table_association" "private_subnet_associations" {
   depends_on = [aws_subnet.private_subnet, aws_route_table.private_subnet_routes]
 }
 
-
+# Network interface security group attachment (NAT server)
 resource "aws_network_interface_sg_attachment" "sg_attachment" {
   security_group_id    = aws_security_group.dmz_subnet_sg.id
   network_interface_id = var.NatSrv_primary_network_interface_id
