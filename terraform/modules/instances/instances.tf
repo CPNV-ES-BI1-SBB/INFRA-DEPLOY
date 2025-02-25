@@ -8,6 +8,8 @@ resource "aws_instance" "NatSrv" {
     tags = {
         Name = "NatSrv"
     }
+    
+    key_name = "ria2_sysadm"
 }
 
 
