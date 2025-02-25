@@ -42,12 +42,6 @@ variable "allowed_ips" {
     description = "Allowed IPs for the security group"
 }
 
-
-
-
-
-
-
 variable "igw_name" {
     type = string
     description = "IGW name"
