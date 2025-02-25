@@ -20,3 +20,13 @@ variable "vpc" {
     type        = map(string)
     description = "VPC base information"
 }
+
+variable "allowed_ips" {
+    type        = list(string)
+    description = "Allowed IPs for the security group"
+}
+
+variable "NatSrv_primary_network_interface_id" {
+    type = string
+    description = "The ID of the primary network interface of the NAT server"
+}
