@@ -5,6 +5,9 @@ module "network" {
   private_subnets = var.private_subnets
   vpc = var.vpc
   igw_name = var.igw_name
+  allowed_ips = var.allowed_ips
+
+  NatSrv_primary_network_interface_id = module.instances.NatSrv_primary_network_interface_id
 }
 
 module "instances" {

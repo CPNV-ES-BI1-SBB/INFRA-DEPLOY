@@ -36,6 +36,11 @@ variable "private_subnets" {
     description = "Private subnets base information. List in terraform.tfvars.json"
 }
 
+variable "allowed_ips" {
+    type        = list(string)
+    default     = ["0.0.0.0/0"]
+    description = "Allowed IPs for the security group"
+}
 
 
 
