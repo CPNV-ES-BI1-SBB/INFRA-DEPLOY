@@ -72,6 +72,7 @@ resource "aws_route_table" "private_subnet_routes" {
   depends_on = [module.instances.aws_instance.NatSrv]
 }
 
+# DMZ security group
 resource "aws_security_group" "dmz_subnet_sg" {
   name        = "${var.dmz_subnet["subnet_name"]}-sg"
   description = "Security group for private subnet"
@@ -82,6 +83,7 @@ resource "aws_security_group" "dmz_subnet_sg" {
   }
 }
 
+# Private subnets security group
 resource "aws_security_group" "private_subnet_sg" {
   count = length(var.private_subnets)
   name        = "${var.private_subnets[count.index]["subnet_name"]}-sg"
@@ -93,11 +95,22 @@ resource "aws_security_group" "private_subnet_sg" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ssh_from_cpnv" {
+# Security group rules
+resource "aws_vpc_security_group_ingress_rule" "dmz_ingress_rules" {
   security_group_id = aws_security_group.dmz_subnet_sg.id
   cidr_ipv4         = "193.5.240.9/32"
   from_port         = 0
   ip_protocol       = "tcp"
   to_port           = 22
   description       = "SSH access from CPNV"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "private_subnets_ingress_rules" {
+  count = length(var.private_subnets)
+  security_group_id = aws_security_group.private_subnet_sg[count.index].id
+  cidr_ipv4         = "10.0.0.5/32"
+  from_port         = 0
+  ip_protocol       = "tcp"
+  to_port           = 22
+  description       = "SSH access from the nat server"
 }
