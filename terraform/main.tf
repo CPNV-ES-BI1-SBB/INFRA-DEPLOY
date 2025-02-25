@@ -15,4 +15,5 @@ module "instances" {
   vpc_id = module.network.vpc_id
   dmz_subnet_id = module.network.dmz_subnet_id
   private_subnet_ids = module.network.private_subnet_ids
+  private_subnet_sg_ids = module.network.private_subnet_sg_ids
 }

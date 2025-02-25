@@ -40,11 +40,10 @@ variable "private_subnet_ids" {
   }))
 }
 
-
-# variable "private_subnet_iface_ids" {
-#     type        = list(string)
-#     description = "natsrv interface ID" 
-# }
+variable "private_subnet_sg_ids" {
+  description = "List of private subnet security group IDs"
+  type = list(string)
+}
 
 variable "nbr_subnet_host" {
     description = "Number of hosts in the cluster"
@@ -55,12 +54,13 @@ variable "nbr_subnet_host" {
 
 locals {
     subnet_hosts = flatten([
-        for subnet in var.private_subnet_ids : [
+        for subnet_index, subnet in var.private_subnet_ids : [
             for instance in range(var.nbr_subnet_host) : {
                 subnet_id = subnet.id
                 subnet_name= subnet.name
                 vm_index = instance + 1
                 name = "${subnet.name}-k8s-host-${format("%02d", instance + 1)}"
+                instance_sg_id = var.private_subnet_sg_ids[subnet_index]
             }
         ]
     ])
