@@ -24,5 +24,5 @@ resource "aws_instance" "cluster_host" {
         Name = local.subnet_hosts[count.index].name
     }
 
-    vpc_security_group_ids = local.subnet_hosts[count.index].instance_sg_id
+    vpc_security_group_ids = [local.subnet_hosts[count.index].instance_sg_id]
 }
