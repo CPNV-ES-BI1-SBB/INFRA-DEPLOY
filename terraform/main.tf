@@ -14,6 +14,6 @@ module "instances" {
   source = "./modules/instances"
   vpc_id = module.network.vpc_id
   dmz_subnet_id = module.network.dmz_subnet_id
-  private_subnet_ids = module.network.private_subnet_ids
+  created_private_subnets_infos = module.network.created_private_subnets_infos
   private_subnet_sg_ids = module.network.private_subnet_sg_ids
 }
