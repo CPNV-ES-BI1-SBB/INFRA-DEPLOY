@@ -10,15 +10,16 @@ variable "ami" {
     description = "AMI ID"
 }
 
-variable vpc {
+variable "vpc" {
     type        = map(string)
     default     = {
+        name = "VPC"
         cidr_block = "10.0.0.0/16"
     }
     description = "VPC base information"
 }
 
-variable dmz_subnet {
+variable "dmz_subnet" {
     type        = map(string)
     default     = {
         subnet_name: "DMZ",
@@ -27,7 +28,7 @@ variable dmz_subnet {
     description = "Public subnet base information"
 }
 
-variable private_subnets {
+variable "private_subnets" {
     type       = list(object({
         subnet_name = string
         cidr_block  = string
@@ -35,14 +36,18 @@ variable private_subnets {
     description = "Private subnets base information. List in terraform.tfvars.json"
 }
 
+variable "allowed_ips" {
+    type        = list(string)
+    default     = ["0.0.0.0/0"]
+    description = "Allowed IPs for the security group"
+}
 
+variable "igw_name" {
+    type = string
+    description = "IGW name"
+}
 
-
-
-
-
-
-variable keyPairs {
+variable "keyPairs" {
     type       = map(string)
     default    = {
         ELT    = "ELT"

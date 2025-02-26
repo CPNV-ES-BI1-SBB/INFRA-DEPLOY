@@ -1,5 +1,5 @@
 output "vpc_id" {
-  value       = aws_vpc.DMZ.id
+  value       = aws_vpc.main_vpc.id
 }
 
 output "dmz_subnet_id" {
@@ -23,4 +23,8 @@ output "dmz_route_table_id" {
 
 output "private_subnet_route_ids" {
   value = [ for route in aws_route_table.private_subnet_routes : route.id]
+}
+
+output "private_subnet_sg_ids" {
+  value = [ for sg in aws_security_group.private_subnet_sg : sg.id]
 }

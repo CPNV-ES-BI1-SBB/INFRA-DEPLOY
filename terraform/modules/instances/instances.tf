@@ -8,6 +8,9 @@ resource "aws_instance" "NatSrv" {
     tags = {
         Name = "NatSrv"
     }
+    
+    key_name = "ria2_sysadm"
+    source_dest_check = false
 }
 
 
@@ -18,7 +21,22 @@ resource "aws_instance" "cluster_host" {
     subnet_id     = local.subnet_hosts[count.index].subnet_id
     associate_public_ip_address = false
 
+    private_ip    = cidrhost(local.subnet_hosts[count.index].cidr_block, local.subnet_hosts[count.index].vm_index)
+
     tags = {
         Name = local.subnet_hosts[count.index].name
     }
+
+    vpc_security_group_ids = [local.subnet_hosts[count.index].instance_sg_id]
+
+    key_name = "ria2_sysadm"
+}
+
+
+resource "local_file" "ansible_inventory" {
+  filename = "${path.module}/../../cluster_hosts.ini"
+  content = templatefile("${path.module}/inventory.tpl", {
+    nat_instance    = aws_instance.NatSrv
+    cluster_hosts   = [for i in range(length(aws_instance.cluster_host)) : aws_instance.cluster_host[i]]
+  })
 }
