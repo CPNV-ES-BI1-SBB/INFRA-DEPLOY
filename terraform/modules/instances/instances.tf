@@ -34,7 +34,7 @@ resource "aws_instance" "cluster_host" {
 
 
 resource "local_file" "ansible_inventory" {
-  filename = "${path.module}/../../cluster_hosts.ini"
+  filename = "${path.module}/../../../ansible/cluster_hosts.ini"
   content = templatefile("${path.module}/inventory.tpl", {
     nat_instance    = aws_instance.NatSrv
     cluster_hosts   = [for i in range(length(aws_instance.cluster_host)) : aws_instance.cluster_host[i]]
