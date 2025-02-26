@@ -6,10 +6,11 @@ output "dmz_subnet_id" {
   value       = aws_subnet.DMZ.id
 }
 
-output "private_subnet_ids" {
+output "created_private_subnets_infos" {
   value       = [ for idx, subnet in aws_subnet.private_subnet : {
       id = subnet.id
       name = subnet.tags["Name"]
+      cidr_block = subnet.cidr_block
   }]
 }
 
