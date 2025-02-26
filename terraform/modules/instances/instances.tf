@@ -10,6 +10,7 @@ resource "aws_instance" "NatSrv" {
     }
     
     key_name = "ria2_sysadm"
+    source_dest_check = false
 }
 
 
@@ -27,4 +28,13 @@ resource "aws_instance" "cluster_host" {
     vpc_security_group_ids = [local.subnet_hosts[count.index].instance_sg_id]
 
     key_name = "ria2_sysadm"
+}
+
+
+resource "local_file" "ansible_inventory" {
+  filename = "${path.module}/../../cluster_hosts.ini"
+  content = templatefile("${path.module}/inventory.tpl", {
+    nat_instance    = aws_instance.NatSrv
+    cluster_hosts   = [for i in range(length(aws_instance.cluster_host)) : aws_instance.cluster_host[i]]
+  })
 }
