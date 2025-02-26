@@ -61,9 +61,9 @@ locals {
                 subnet_name= subnet.name
                 vm_index = instance + 1
                 subnet_cidr_block = subnet.cidr_block
-                name = "${subnet.name}-k8s-host-${format("%02d", instance + 1)}"
+                name = "${subnet.name}-host-${format("%02d", instance + 1)}"
                 instance_sg_id = var.private_subnet_sg_ids[subnet_index]
             }
-        ]
+        ]   
     ])
 }
