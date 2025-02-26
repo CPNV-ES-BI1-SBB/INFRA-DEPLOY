@@ -24,8 +24,13 @@
     - name: Apply sysctl changes
       command: sysctl -p
 
+    - name: Get default network interface
+      shell: "ip -o -4 route show to default | awk '{print $5}'"
+      register: default_iface
+      changed_when: false
+
     - name: Configure NAT with iptables
-      command: iptables -t nat -A POSTROUTING -o $(ip -o -4 route show to default | awk '{print $5}') -j MASQUERADE
+      command: "iptables -t nat -A POSTROUTING -o {{ default_iface.stdout }} -j MASQUERADE"
       args:
         executable: /bin/bash
   
