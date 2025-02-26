@@ -1,6 +1,6 @@
 ---
 - name: Setup NatSrv
-  hosts: all
+  hosts: nat_servers
   become: yes
   tasks:
     - name: install iptables
