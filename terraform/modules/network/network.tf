@@ -6,6 +6,53 @@ resource "aws_vpc" "main_vpc" {
   }
 }
 
+resource "aws_network_acl" "vpc_acl" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "ACL-${var.vpc["name"]}"
+  }
+}
+
+resource "aws_network_acl_rule" "vpc_acl_ssh" {
+  count = length(var.allowed_ips)
+  network_acl_id = aws_network_acl.vpc_acl.id
+  rule_number    = 10 + count.index
+  action         = "allow"
+  protocol       = "tcp"
+  from_port      = 22
+  to_port        = 22
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = var.allowed_ips[count.index]
+}
+
+resource "aws_network_acl_rule" "vpc_acl_http" {
+  count = length(var.allowed_ips)
+  network_acl_id = aws_network_acl.vpc_acl.id
+  rule_number    = 20 + count.index
+  action         = "allow"
+  protocol       = "tcp"
+  from_port      = 80
+  to_port        = 80
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = var.allowed_ips[count.index]
+}
+
+resource "aws_network_acl_rule" "vpc_acl_https" {
+  count = length(var.allowed_ips)
+  network_acl_id = aws_network_acl.vpc_acl.id
+  rule_number    = 20 + count.index
+  action         = "allow"
+  protocol       = "tcp"
+  from_port      = 443
+  to_port        = 443
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = var.allowed_ips[count.index]
+}
+
 # DMZ creation
 resource "aws_subnet" "DMZ" {
   vpc_id     = aws_vpc.main_vpc.id
