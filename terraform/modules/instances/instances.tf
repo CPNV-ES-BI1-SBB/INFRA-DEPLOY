@@ -21,7 +21,7 @@ resource "aws_instance" "cluster_host" {
     subnet_id     = local.subnet_hosts[count.index].subnet_id
     associate_public_ip_address = false
 
-    private_ip    = cidrhost(local.subnet_hosts[count.index].cidr_block, local.subnet_hosts[count.index].vm_index)
+    private_ip    = cidrhost(local.subnet_hosts[count.index].subnet_cidr_block, local.subnet_hosts[count.index].vm_index + 4)
 
     tags = {
         Name = local.subnet_hosts[count.index].name
